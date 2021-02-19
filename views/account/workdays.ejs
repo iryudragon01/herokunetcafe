@@ -1,0 +1,30 @@
+<div class="container border border-2 border-secondary">
+    <h2 class="text-center">วันทำงาน</h2>
+    <table class="table">
+        <thead>
+            <th class="col-3">รายการ</th>
+            <th class="col-3">วัน</th>
+            <th class="col-2">บาท</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-3">วันทำงาน</td>
+                <td class="col-3"><%= daydiff %></td>
+                <td class="col-2"><%= parseInt(daydiff)*300 %></td>
+            </tr>
+            <tr>
+                <td class="col-3">กลางคืน</td>
+                <td class="col-3"><%= weekend %></td>
+                <td class="col-2"><%= parseInt(weekend)*100 %></td>
+            </tr>
+            <tr>
+                <td class="col-3">รวม</td>
+                <td class="col-3"></td>
+                <td class="col-2"><%= salaries %></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<br>
+<br>

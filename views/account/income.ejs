@@ -1,0 +1,41 @@
+
+    <% if(incomes.length > 0) { %>
+<br>
+<br>
+
+
+<div class="container border border-2 border-success">
+    <h2 class="text-center text primary">รายรับ</h2>
+<table class="table">
+<thead>
+    <tr>
+        <th class="col-3">วันที่</th>
+        <th class="col-3">รายการ</th>
+        <th class="col-2">ยอดเงิน</th>
+    </tr>
+</thead>
+<tbody>
+    <% locals.incomes.forEach(income => { %>
+        <tr>
+            <td class="col-3"><%= income.local_time %></td>
+            <td class="col-3"><%= income.name %></td>
+            <td class="col-2"><%= income.quantity %></td>
+        </tr>
+   <% }) %>
+   <tr>
+       <td>
+           <a class="btn btn-success" href="/income">เพิ่มรายการ</a>
+       </td>
+   </tr>
+        <tr>
+            <td class="col-3">ยอดเงินรวม</td>
+            <td class="col-3"></td>
+            <td class="col-2"><%= totalAmountIncome %></td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+<br><br>
+
+<% } %>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขรายการ</title>
+</head>
+<body>
+    <%- include ../layout %>
+    <div class="container border border-2 border-primary col-6">
+    <h2 class="text-center"><%= refill[0].local_time %></h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-3">รายการ</th>
+                    <th class="col-3">จำนวน</th>
+                </tr>
+            </thead>
+            <form action="/refill/detail" method="post">
+                <input type="hidden" name="time" value="<%= refill[0].time %>">
+                <% i=0 ; refill.forEach(element => { %>
+                        <tr>
+                            <td class="col-3"><%= element.title %></td>
+                            <td class="col-3">
+                                <input type="hidden" name="id_<%= i %>" value="<%= element._id %>">
+                                <input type="hidden" name="title<%= i %>" value="<%= element.title%>">
+                                <input name="input<%= i++ %>" type="number" value="<%= element.volume %>" min=0 
+                                onchange="
+                                document.getElementById('update_btn').classList.remove('collapse')
+                                "
+                                class="form-control"                             
+                                /></td>                            
+                        </tr>
+                <% }) %>
+                <tr id='update_btn' class='collapse'>
+                    <td><button type="submit" class="btn btn-success">บันทึก</button></td>
+                </tr>
+            </form>
+        </table>
+
+    <br><br>
+    </div>
+
+</body>
+</html>

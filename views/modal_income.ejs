@@ -1,0 +1,34 @@
+<!--    medal-->
+
+<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalEditLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/income/edit" method="POST">
+          <div class="mb-3">
+            <label for="ModalEditLocalTime" class="col-form-label">วันที่:</label>
+            <input type="text" class="form-control" id="ModalEditLocalTime" disabled value="date" >
+          </div>
+          <div class="mb-3">
+            <label for="ModalEditName" class="col-form-label">รายการ</label>
+            <input type="text" class="form-control" id="ModalEditName" name="name" />
+          </div>
+          <div class="mb-3">
+            <label for="ModalEditQuantity" class="col-form-label">ยอดเงิน</label>
+            <input type="number" class="form-control" id="ModalEditQuantity" name="quantity" />
+          </div>
+          <input type="hidden" id="ModalEdit_Id" name="_id">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+        <button type="submit" class="btn btn-primary">บันทึก</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>refill 2</title>
+</head>
+<body>
+    <%- include ../layout %>
+    <% if(foodgroup.length > 0){ %> 
+        <div class="container border border-2 border-primary">
+            <h2 class="text-primary text-center">อาหาร และ เครื่องดื่ม</h2>
+            <div class="row g-2">
+                <div class="col-3">วันที่</div>
+                <% foods.forEach(element => { %>
+                    <div class="col text-success"><%= element.title %></div>
+               <% })  %>
+            </div>
+
+            <% foodgroup.forEach(subgroup =>{ %>
+                <div class="row g-2">
+                    <div class="col-3"><%= subgroup[0].local_time %></div>
+                    <% foods.forEach(subfood =>{ %>
+                        <div class="col"><%= subgroup.find(element => element.title == subfood.title ) ? subgroup.find(element => element.title == subfood.title ).volume : 0 %></div>
+                   <% }) %>
+                   <div class="col-1"><a href="/refill/<%= subgroup[0].time%>">แก้ไข</a></div>
+                </div>
+           <% }) %>
+        </div>
+
+    <% } %>
+    
+    <br><br>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <% if(foods.length>0){ %>
+        <button id="addnewfoodcall" class="btn btn-success"
+        onclick="
+        document.getElementById('addnewfood').classList.remove('collapse')
+        this.classList.add('collapse')
+        "
+        >เพิ่มรายการใหม่</button>
+        <div id="addnewfood" class="container border border-2 border-primary collapse ">
+            <h2 class="text-center text-primary">เพิ่มรายการใหม่</h2><br><br>
+            <form action="/refill" method="post">
+            <div class='row g-3' id="holder">
+            </div>            
+            <div class="col">
+                <button type="submit" class="btn btn-success" >บันทึก</button>
+            </div>
+        </form>
+        <br><br>
+        <div class="container border border-2 border-primary">
+            <div class="row">
+                <select name="select_food" id="select_food" class="col-auto" >
+                    <% foods.forEach(element =>{ %>
+                        <option value="<%= element._id %>"
+                            ><%= element.title %></option>
+
+                  <%  }) %>
+                   </select>
+                   <input type="number" min=0 value=0 required class="col-auto" id="select_food_quantity">
+                   <button class="col-auto btn btn-success"
+                   onclick="addnewfood()"
+                   >เพิ่ม</button>
+            </div>
+        </div>
+        </div>
+        <% } %>
+        <script>
+            function addnewfood(){    
+                var selectElement =document.getElementById('select_food')            
+                var _id = selectElement.value
+                var name_food =selectElement.options[selectElement.selectedIndex].text  
+                var quantity =parseInt(document.getElementById('select_food_quantity').value)
+                // remove and update
+                if ( document.getElementById(_id)){
+                    document.getElementById(_id).remove()
+                }
+                if ( quantity < 1 ) return
+                const parentElement = document.getElementById('holder')
+                var childElement = document.createElement('div')
+                childElement.classList.add('row')
+                childElement.setAttribute('name',_id)
+                childElement.setAttribute('id',_id)                
+
+                var label = document.createElement('label')
+                label.classList.add('col-2')
+                label.innerHTML = name_food ;
+
+                var input   = document.createElement('input')
+                input.classList.add('col-2')
+                input.setAttribute('name',_id)
+                input.setAttribute('readonly',true)
+                input.value=quantity
+
+                childElement.appendChild(label)
+                childElement.appendChild(input)
+                parentElement.appendChild(childElement)
+            }
+        </script>
+</body>
+</html>

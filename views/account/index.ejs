@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=., initial-scale=1.0">
+    <title>บัญชี</title>
+</head>
+<body>
+    <%- include ../layout %>
+    <div class="container border border-2 border-primary">
+        
+        <h2 class="text-center text-primary">บัญชี</h2>
+        <h4 class="text-primary">วันที่&nbsp;<%= timestamp.iniDay %>&nbsp;&nbsp;&nbsp;
+            เวลา&nbsp;<%= timestamp.iniTime %></h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col-3">รายการ</th>
+                    <th scope="col-1">เริ่มต้น</th>
+                    <th scope="col-2">สุดท้าย</th>
+                    <th scope="col-1">ยอดขาย</th>
+                    <th scope="col-1">ยอดเงิน</th>
+                </tr>
+            </thead>
+            <tbody>
+                <form action="/account" method="post">
+                    <% var i=0 ;locals.accounts.forEach( function(account){ %>
+                        <tr>
+                        <td class="col-2"><%= account.title %></td>
+                        <td name="ini<%= i %>" class="col-1"><%= account.initial %></td>
+                        <td class="col-2">
+                            <input name="ticket<%= i++ %>" type="number" value="<%= account.lastest %>"  
+                            class="form-control"
+                            min=<%= (parseInt(account.mode) == 1 ) ? account.initial : 0 %>
+                            max=<%= (parseInt(account.mode) == -1 ) ? account.initial : 1000000000000 %>
+                            onchange="                         
+                            document.getElementById('update_account').classList.remove('collapse');
+                            document.getElementById('netamount').classList.add('collapse');
+                            "
+                            /></td>
+                            <td class="col-1"><%= account.volume %></td>
+                            <td class="col-1"><%= account.amount %></td>
+                        </tr>
+                   <% }) %>  
+                   <tr></tr>
+                   <tr class="border border-1 border-success">
+                       <td class="col-2">ยอดเงินรวม</td>
+                       <td class="col-1"></td>
+                       <td class="col-2"></td>
+                       <td class="col-1"></td>
+                       <td class="col-1"><%= totalAmountProduct %></td>
+                   </tr>
+            </tbody>
+        </table>
+<button type="submit" id="update_account" class="collapse btn btn-success">update</button>
+
+</form>
+    </div>
+
+    <!-- insert income-->
+    <%- include income %>
+    <%- include expense %>
+    <%- include workdays %>
+    <%- include netamount %>
+</body>
+</html>

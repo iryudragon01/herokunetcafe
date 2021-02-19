@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include layout%>
+    <div class='container' >
+        <h1 class="text-center" ><%= title %></h1>
+        <% if (locals.errors ) { %>
+        <ul class='alert alert-warning'>
+          <% Object.values(errors).forEach( function (error) {%>
+           <li> <%= error.msg %></li> 
+            <% } ) %>
+        </ul>
+        <% } %> 
+
+
+        <% if(locals.expenses) { %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col">วันที่</th>
+                <th class="col">รายการ</th>
+                <th class="col">ยอดเงิน</th>
+                <th class="col"></th>
+                <th class="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              
+          <% locals.expenses.forEach( function (expense) {%>
+            <tr>
+              
+            <td > <%= expense.local_time %></td> 
+            <td > <%= expense.name %></td> 
+            <td > <%= expense.quantity %></td> 
+            <td >   <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#ModalEdit" 
+              onclick="
+              document.getElementById('ModalEditLabel').innerHTML='<%= expense._id %>';
+              document.getElementById('ModalEditLocalTime').value='<%= expense.local_time %>';
+              document.getElementById('ModalEditName').value='<%= expense.name %>';
+              document.getElementById('ModalEditQuantity').value='<%= expense.quantity %>';
+              document.getElementById('ModalEdit_Id').value='<%= expense._id %>';
+              
+              
+              "
+              
+              >แก้ไข</button>
+            </td>
+            <td > <form action="/expense/delete" method="POST" >
+              <input type="hidden" name="_id" value="<%= expense._id %>" />
+              <input type="submit" class="btn btn-danger" value="ลบข้อมูล"  />
+            </form></td>
+
+          </tr>
+          <tr class="collapse" id="<%=expense._id %>" >
+            <td class="card card-body" >
+              this is hide
+            </td>
+          </tr>
+             <% } ) %>
+            </tbody>
+          </table>
+        <% } %>
+
+        <form class="row g-3" action="/expense" method="POST">
+            <div class="col-auto">
+              <label for="name" class="col-form-label">รายการ</label>
+            </div>
+            <div class="col-auto">
+              <input type="text" class="form-control" name="name" value="">
+            </div>
+            <div class="col-auto">
+              <label for="quantity" class="col-form-label">ยอดเงิน</label>
+            </div>
+            <div class="col-auto">
+              <input type="number" class="form-control" name="quantity" >
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-3">เพิ่ม รายการใหม่</button>
+            </div>
+          </form>
+        </div>
+
+        <%- include modal_expense %>
+
+</body>
+</html>
