@@ -4,10 +4,11 @@ const income = require('../models/income');
 const income_module = require('./statement/income')
 const expense = require('../models/expense');
 const expense_module = require('./statement/expense')
+const verify = require('./verifytoken')
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',verify, function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 // Income Page

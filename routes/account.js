@@ -4,14 +4,15 @@ const income= require('../models/income')
 const expense = require('../models/expense')
 const log = require('../models/log')
 const foodStock = require('../models/refill')
-const { findOne } = require('../models/ticket')
+const verify = require('./verifytoken')
+require('dotenv').config()
 
 const router =express.Router()
 
 
 
 // update amount and volume ticket collections with middleware
-router.use('/',async function(req,res,next){
+router.use('/',verify,async function(req,res,next){
     var food = await ticket.find({mode:-1})
      if (req.method == 'GET')
     {   for (i=0;i<food.length;i++){
