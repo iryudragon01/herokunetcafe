@@ -33,7 +33,8 @@ router.post('/register', async (req,res,next) =>{
  var user = new User({
     name:req.body.name,
     email:req.body.email,
-    password:hashedPassword
+    password:hashedPassword,
+    role:'member'
   })
   await user.save() 
   .then(result =>{
@@ -58,8 +59,9 @@ router.post('/login',async (req,res)=>{
   const validPass = await bcryptjs.compare(req.body.password,user.password)
   if ( !validPass) return res.status(400).send('email or password do not correct')
   //create and assign token
-  const token = jsonwebtoken.sign({_id:user._id,name:user.name},process.env.SECRET_TOKEN)
-  res.header('auth-token',token).render('user/index')
+  const token = jsonwebtoken.sign({_id:user._id,name:user.name,role:user.role},process.env.SECRET_TOKEN)
+  res.cookie('auth-token',token)
+  res.redirect('/account')
 
 })
 module.exports = router;

@@ -38,6 +38,7 @@ router.use('/',verify,async function(req,res,next){
 
 
 router.get('/',async function(req,res,next){
+    console.log(req.user.role)
     var account = await ticket.find()
     var incomes = await income.find()
     var expenses = await expense.find()
@@ -64,10 +65,11 @@ router.get('/',async function(req,res,next){
     const currentHour = nowday.getHours()
     var daydiff = Math.floor((nowday.getTime()-iniday.getTime())/(1000*3600*24))
     daydiff += (currentHour >= 14) 
+    console.log(`${currentHour} current hour`)
     saturnday = Math.floor((iniday.getDay()+daydiff)/7)
-    weekend = 2*saturnday + (iniday.getDay() == 0 )*(daydiff > 0) + (nowday.getDay()==6)*(daydiff > 0)
+    weekend = 2*saturnday + (iniday.getDay() == 0 )*(daydiff > 0)*(currentHour>=14) + (nowday.getDay()==6)*(daydiff > 0)*(currentHour>=14)
     salaries= (daydiff * 300) + (weekend * 100)
-
+    console.log(`saturnday:${saturnday}, start:${(iniday.getDay() == 0 )*(daydiff > 0)} , now:${(nowday.getDay()==6)*(daydiff > 0)*(currentHour>=14)}`)
     netAmount = totalAmountProduct+totalAmountIncome-totalAmountExpense-salaries
 
     //render
