@@ -6,11 +6,11 @@ const Validation = require('../../validation')
 
 module.exports = {
     formValidation:function(req,res){     
-        var { error } = Validation.statementValidation(req)   
+        var { error } = Validation.statementValidation(req.body)   
         if(error){  //กรอกข้อมูลไม่ครบ
-            console.log(error)
-            res.render('income', {title:'รายรับ',errors:error})
-          }else{        
+            res.send(error.details[0])
+          }
+          else{        
             //save data to database
 
             var time = new Date()

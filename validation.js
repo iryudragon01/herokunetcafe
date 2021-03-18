@@ -20,7 +20,7 @@ const loginValidation = (data) =>{
 const statementValidation = (data) => {
     const schema = Joi.object().keys({
         name:Joi.string().min(1).required(),
-        quantity:Joi.number().integer().min(1).required()
+        quantity:Joi.number().integer().positive().required()
     })
     return schema.validate(data)
 
