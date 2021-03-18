@@ -18,6 +18,7 @@ router.get('/login', (req,res) =>{
 })
 //Create new User
 router.post('/register', async (req,res,next) =>{  
+  console.log('hello')
   //Validation
   const {error} = registerValidation(req.body)
   if (error) return res.status(400).send(error.details[0].message)

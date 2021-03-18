@@ -1,10 +1,15 @@
 
 const mongoose= require('mongoose')
 const Income = require('../../models/income')
+const Validation = require('../../validation')
+
+
 module.exports = {
-    formValidation:function(result,errors,req,res){        
-        if(!result.isEmpty()){  //กรอกข้อมูลไม่ครบ
-            res.render('income', {title:'รายรับ',errors:errors})
+    formValidation:function(req,res){     
+        var { error } = Validation.statementValidation(req)   
+        if(error){  //กรอกข้อมูลไม่ครบ
+            console.log(error)
+            res.render('income', {title:'รายรับ',errors:error})
           }else{        
             //save data to database
 
