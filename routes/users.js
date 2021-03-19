@@ -60,9 +60,14 @@ router.post('/login',async (req,res)=>{
   const validPass = await bcryptjs.compare(req.body.password,user.password)
   if ( !validPass) return res.status(400).send('email or password do not correct')
   //create and assign token
-  const token = jsonwebtoken.sign({_id:user._id,name:user.name,role:user.role},process.env.SECRET_TOKEN)
+  const token = jsonwebtoken.sign({_id:user._id,name:user.name,role:user.role,exp:Math.floor(Date.now()/1000)+(60*1)},process.env.SECRET_TOKEN)
   res.cookie('auth-token',token)
   res.redirect('/account')
 
+})
+
+router.get('/logout',(req,res) =>{
+   delete res.cookie('auth-token')
+  res.redirect('/')
 })
 module.exports = router;

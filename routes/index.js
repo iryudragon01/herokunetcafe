@@ -8,7 +8,7 @@ const verify = require('./verifytoken')
 
 
 /* GET home page. */
-router.get('/',verify, function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 // Income Page

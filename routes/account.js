@@ -38,7 +38,6 @@ router.use('/',verify,async function(req,res,next){
 
 
 router.get('/',async function(req,res,next){
-    console.log(req.user.role)
     var account = await ticket.find()
     var incomes = await income.find()
     var expenses = await expense.find()
