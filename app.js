@@ -10,6 +10,7 @@ var accountRouter = require('./routes/account')
 var logRouter = require('./routes/log')
 var rebuildRouter = require('./routes/rebuild')
 var refillRouter = require('./routes/refill')
+const authenRouter = require('./routes/authen/main')
 
 var app = express();
 var mongoose = require('mongoose')
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/authen',authenRouter)
 app.use('/users', usersRouter);
 app.use('/account',accountRouter)
 app.use('/log',logRouter)

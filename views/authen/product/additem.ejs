@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add product</title>
+</head>
+<body>
+    <%- include ../../layoutauthen.ejs %>
+    <div class="container">
+        <hr>
+        <form action="additem" method="post">
+            <div class="col-5">
+                <label for="name" class="form-control-label">product name</label>
+                <input type="text" min=1 name="name" class="form-control">
+                <hr>
+
+            </div>
+        <div class="col-3">
+            <button class="btn btn-success" type="submit">add</button>
+        </div>
+
+        </form>
+    </div>
+    
+</body>
+</html>

@@ -62,7 +62,7 @@ router.post('/login',async (req,res)=>{
   //create and assign token
   const token = jsonwebtoken.sign({_id:user._id,name:user.name,role:user.role,exp:Math.floor(Date.now()/1000)+(60*1)},process.env.SECRET_TOKEN)
   res.cookie('auth-token',token)
-  res.redirect('/account')
+  res.redirect('/authen')
 
 })
 
