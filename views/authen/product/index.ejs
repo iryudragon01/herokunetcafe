@@ -13,7 +13,8 @@
         <% Product.forEach(element =>{ %>
             <div class="col">
                 <p class="text-success"><%= element.name %></p>
-                <input type="button" value="edit">
+                <a href="/authen/product/<%= element.name %>">
+                    <input type="button" value="edit"></a>
             </div>
         <% }) %>
     <% } %>

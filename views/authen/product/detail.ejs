@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขรายการ</title>
+</head>
+<body>
+    <%- include ../../layoutauthen %>
+    <div class="container border border-2 border-primary col-6">
+    <h2 class="text-center"><%= Product.name %></h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-3">name</th>
+                    <th class="col-3"></th>
+                </tr>
+            </thead>
+            <form action="" method="post">
+                <input type="hidden" name="oldname" value="<%= Product.name %>">
+                        <tr>
+                            <td class="col-3"> <input name="name" value="<%= Product.name %>"
+                                onchange="
+                                document.getElementById('update_btn').classList.remove('collapse')
+                                "
+                                class="form-control"                             
+                                /></td>
+                            <td class="col-3"><button type="submit" class="btn btn-success" id="update_btn">บันทึก</button>
+                               </td>                            
+                        </tr>
+                    </form>
+                        <tr>
+                            <form action="delete/<%= Product.name %>" method="POST">
+                                <td>
+                                    <button  class="btn btn-danger" type="submit">DELETE</button></td>
+                            </form>
+                        </tr>
+            
+        </table>
+
+    <br><br>
+    </div>
+
+</body>
+</html>
